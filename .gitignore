@@ -1,0 +1,34 @@
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Configuración de entornos virtuales en Python
+venv/
+.env
+*.pyc
+__pycache__/
+
+# Archivos de configuración de Docker
+docker-compose.override.yml
+docker-compose.prod.yml
+
+# Logs y archivos temporales
+*.log
+*.tmp
+
+# Archivos de AWS CLI o credenciales sensibles
+.aws/
+*.pem
+
+# Git / ramas y backups
+.git/
+*.orig
+
+# Archivos propios del editor/IDE
+*.swp
+.idea/
+*.vscode/
+
+# Configuración adicional
+node_modules/        # Si usas frontend basado en JavaScript
+terraform.tfstate*   # Si incluyes Terraform luego
