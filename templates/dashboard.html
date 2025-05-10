@@ -1,0 +1,61 @@
+<!-- dashboard.html -->
+{% extends "base.html" %}
+
+{% block title %}
+  Dashboard - SecureApp
+{% endblock %}
+
+{% block content %}
+<header>
+  <h1>SecureApp Dashboard</h1>
+  <div class="admin-card" style="display:flex; gap:1rem; align-items:center;">
+    Conectado como: {{ me.username }} ({{ me.role.capitalize() }})
+    <a href="{{ url_for('dashboard') }}"><button>Dashboard</button></a>
+    <a href="http://localhost:3000" target="_blank"><button>Métricas</button></a>
+    <a href="{{ url_for('logout') }}"><button>Cerrar sesión</button></a>
+  </div>
+</header>
+
+<section>
+  <h2>Clientes</h2>
+  {% if clients %}
+    <table>
+      <thead>
+        <tr><th>Usuario</th><th>Nombre</th><th>Acciones</th></tr>
+      </thead>
+      <tbody>
+        {% for u in clients %}
+          <tr>
+            <td>{{ u.username }}</td>
+            <td>{{ u.name }}</td>
+            <td><a href="{{ url_for('view_user', username=u.username) }}"><button>Ver</button></a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No hay clientes.</p>
+  {% endif %}
+</section>
+
+{% set other_admins = admins | selectattr("id", "ne", me.id) | list %}
+{% if other_admins %}
+<section style="margin-top:2rem">
+  <h2>Administradores</h2>
+  <table>
+    <thead>
+      <tr><th>Usuario</th><th>Nombre</th><th>Acciones</th></tr>
+    </thead>
+    <tbody>
+      {% for u in other_admins %}
+        <tr>
+          <td>{{ u.username }}</td>
+          <td>{{ u.name }}</td>
+          <td><a href="{{ url_for('view_user', username=u.username) }}"><button>Ver</button></a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endif %}
+{% endblock %}
